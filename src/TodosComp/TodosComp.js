@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-//import $ from "jquery";
 import {connect} from 'react-redux';
 import DAL from '../State/DALUtils';
 import './TodosComp.css';
 import TodoComp from './TodoComp';
-import  {Switch, Route, Link} from 'react-router-dom';
+import  { Link} from 'react-router-dom';
 import AddTodoComp from '../AddTodoComp/AddTodoComp';
 
 class TodosComp extends Component {
@@ -34,6 +33,11 @@ class TodosComp extends Component {
     this.setState({showAddComp:false})
   }
 
+  unsetActive =() =>{
+
+    this.props.dispatch({type:'SETACTIVEUSER', delta:""});
+  }
+
   render() {
      if( this.state.todos !== undefined &&  this.state.todos !== "" && this.state.userID !== null){
        var todos = [];
@@ -42,13 +46,15 @@ class TodosComp extends Component {
       if(x.userId === parseInt(this.state.userID)){
         return <TodoComp key={index} todo = {x}/>
       }
+      return true;
       })
     }
     
     return (
       <div className="todos-app">
-       <p>Todos - user {this.state.userID}</p>
-      
+      <div className="todos-header"><Link to={`/`} onClick={this.unsetActive} className="btn close">close</Link>
+       <p>Todos - user {this.state.userID}</p> 
+       </div>
        { !this.state.showAddComp && <div className="allTodos"> 
           <input type="button" className="add-btn" onClick={this.showAddComp} value="Add todo"/>
           {todos}
@@ -64,9 +70,6 @@ class TodosComp extends Component {
   componentDidMount(){
     if ( this.state.todos === "" || this.state.todos === undefined){
      DAL.getData('https://jsonplaceholder.typicode.com/todos').then(res =>this.props.dispatch({type:'CREATETODOSLIST', delta:res.data}));
-   }else{
-     //console.log("componentDidMount-else", this.state.todos)
-      //this.props.dispatch({type:'CREATETODOSLIST', delta: {todos:this.state.todos}});
    }
    }
 }

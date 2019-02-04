@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './UsersComp.css';
-import $ from "jquery";
 import {connect} from 'react-redux';
-import  { Router,withRouter , pushState,browserHistory } from 'react-router-dom';
+import  { withRouter  } from 'react-router-dom';
 
 class UserComp extends Component {
   constructor(props){
@@ -16,7 +15,7 @@ class UserComp extends Component {
       return {user:nextProps.user,activeUser:nextProps.state.activeUser};
     }
     else{
-      return {user:nextState.user};
+      return {user:nextState.user, OtherData:nextState.OtherData};
     }
   }
 
@@ -34,19 +33,19 @@ class UserComp extends Component {
     this.setState({ user: userCopy })
   }
 
-  showOtherData = (e) =>{
-    if (this.state.OtherData === false){
-      $('.user-'+this.state.user.id+' .other-data').slideDown();
+   showOtherData = (e) =>{
+    
+    if(window.screen.width > 820)
+    {
       this.setState({OtherData:true})
-    }
-   }
-
-  hideOtherData = (e) =>{ 
-    if (this.state.OtherData === true){
-      $('.user-'+this.state.user.id+' .other-data').slideUp();
-      this.setState({OtherData:false})
-    }
+    } 
   }
+  toggleOtherData = (e) =>{ 
+
+    this.setState({OtherData:!this.state.OtherData})
+
+       
+ }
 
   UpateUser = (e) =>{
     this.props.dispatch({type:'UPDATEUSER', delta: this.state.user});
@@ -54,11 +53,9 @@ class UserComp extends Component {
 
   DeleteUser = (e) =>{ 
      this.props.dispatch({type:'DELETEUSER', delta:this.state.user.id});
-     console.log(this.state.user.id, this.state.activeUser)
      if(this.state.user.id === this.state.activeUser){
       this.props.history.push('/');
      }
-     //this.props.callbackParent(this.state.user.id);
   }
 
   setActiveUser = (e) =>{
@@ -69,7 +66,6 @@ class UserComp extends Component {
   componentDidUpdate(){}
 
   render() {
-
     return (
       
       <div className={'user-wrapper user-'+this.state.user.id}>
@@ -77,12 +73,12 @@ class UserComp extends Component {
        <input type="button" value={"user id:"+this.state.user.id} className="btn-delete btn" onClick={this.setActiveUser}/>
         <p className="user-name">user name:  <input type="text" name="name" value={this.state.user.name} onChange={this.handleChange}/></p>
         <p className="user-email">user email:  <input type="text" name="email" value={this.state.user.email} onChange={this.handleChange}/></p>
-        <input type="button" value="Other Data" className="btn-more btn" onClick={this.hideOtherData} onMouseEnter={this.showOtherData}/>&nbsp;&nbsp;
-        <div className="other-data">
+        <input type="button" value="Other Data" className="btn-more btn" onClick={this.toggleOtherData} onMouseEnter={this.showOtherData}/>&nbsp;&nbsp;
+        {this.state.OtherData && <div className="other-data">
           <p className="user-street">Street:  <input type="text" name="street" value={this.state.user.address.street} onChange={this.handleChange}/></p>
           <p className="user-city">City:  <input type="text" name="city" value={this.state.user.address.city} onChange={this.handleChange}/></p>
           <p className="user-zip">Zip Code:  <input type="text" name="zipcode" value={this.state.user.address.zipcode} onChange={this.handleChange}/></p>
-        </div> 
+    </div> }
 
         <input type="button" value="Update" className="btn-update btn" onClick={this.UpateUser}/>&nbsp;&nbsp;
         <input type="button" value="Delete" className="btn-delete btn" onClick={this.DeleteUser}/>
@@ -97,7 +93,6 @@ class UserComp extends Component {
 
 const mapStateToProps = (newState) =>
 {
-  //console.log(newState);
   return{ 
   state : newState
   }

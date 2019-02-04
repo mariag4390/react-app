@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './TodosAndPostsView.css';
 import TodosComp from '../TodosComp/TodosComp';
 import PostsComp from '../PostsComp/PostsComp';
-import  {Switch, Route, Link} from 'react-router-dom';
 
 class TodosAndPostsView extends Component {
   constructor(props){
@@ -14,7 +13,7 @@ class TodosAndPostsView extends Component {
   }
   render() {
     return (
-      <div className="AddUserScreen">
+      <div className="todos-posts-wrapper">
         <TodosComp userID={this.state.userID}/>
         <PostsComp userID={this.state.userID}/>
       </div>  

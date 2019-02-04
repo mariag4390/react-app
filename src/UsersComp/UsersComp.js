@@ -3,7 +3,7 @@ import DAL from '../State/DALUtils';
 import {connect} from 'react-redux';
 import UserComp from './UserComp';
 import './UsersComp.css';
-//import $ from "jquery";
+
 
 class UsersComp extends Component {
   constructor(props){
@@ -12,7 +12,6 @@ class UsersComp extends Component {
   }
 
   static getDerivedStateFromProps(nextProps,nextState){
-    //onsole.log(nextProps,nextState);
    if( nextState.users !== nextProps.state.users || nextState.todos !== nextProps.state.todos || nextState.activeUser !== nextProps.state.activeUser)
     { 
     return {users:nextProps.state.users, todos:nextProps.state.todos,activeUser:nextProps.state.activeUser}}
@@ -46,15 +45,14 @@ class UsersComp extends Component {
          
          if(x.id === this.state.activeUser){addClass=true;}
        var redBorder= false;
-       var userTodos = todos.filter(todo => todo.userId == x.id);
+       var userTodos = todos.filter(todo => todo.userId === x.id);
          for (var i=0; i < userTodos.length; i++){
             if (!userTodos[i].completed){
                 redBorder=true; 
                 break;
             }
          }
-         //console.log(userTodos);
-         //console.log(x.id, redBorder)
+        
 
         
          return <li className={(redBorder?"red-border":"gray-border") + (addClass ? ' active' : '')} key={index}><UserComp  user={x} /></li>
@@ -84,14 +82,14 @@ class UsersComp extends Component {
          todos = res.data
         this.props.dispatch({type:'CREATEDATA', delta:{'users':users,'todos':todos}});
       })
-     // this.props.dispatch({type:'CREATEUSERSLIST', delta:res.data});
+     
     })
   }
 }
 
 const mapStateToProps = (newState) =>
 {
-  //console.log('newState',newState);
+
   return{ 
   state : newState
   }

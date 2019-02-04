@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './AddPostComp.css';
-import $ from "jquery";
 import {connect} from 'react-redux';
 
 class AddPostComp extends Component {
@@ -22,9 +21,7 @@ class AddPostComp extends Component {
   }
  
   addPost = (e) =>{ 
-   //console.log(this.state.title,this.state.userID);
     this.props.dispatch({type:'ADDNEWPOST', delta: {title:this.state.title,body:this.state.body, userID:this.state.userID}});
-    //this.toggleLightbox();
     this.props.callbackParent()
   }
 
@@ -32,13 +29,10 @@ class AddPostComp extends Component {
     this.props.callbackParent()
   }
 
-  
 
   render() {
-    //console.log(this.state.name, this.state.email);
     return (
-      
-      <div className="AddUserScreen">
+      <div className="">
       <p>Add new post</p>
         
         <p className="user-name">title:  <input type="text" name="name" onChange={this.addTitle}/></p>
@@ -62,11 +56,7 @@ class AddPostComp extends Component {
     );
   }
 
-  componentDidMount()
-  {
-   // this.setState({ userUpdate: this.state.user })
-    
-  }
+  componentDidMount() {}
  
 }
 const mapStateToProps = (newState) =>

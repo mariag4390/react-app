@@ -1,0 +1,6 @@
+.AddUserBtn a{text-decoration: none; background-color: #508AA8; padding: 10px; border-radius: 4px;
+    cursor: pointer; color:#fff }
+
+    .AddUserBtn{display: inline-block;}
+
+    .AddUserBtn a:hover{background-color: #9DD1F1;}

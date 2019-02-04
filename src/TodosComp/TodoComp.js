@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-//import $ from "jquery";
 import {connect} from 'react-redux';
-import DAL from '../State/DALUtils';
 import './TodosComp.css';
 
 
@@ -23,14 +21,12 @@ class TodoComp extends Component {
      
       let todoCopy = JSON.parse(JSON.stringify(this.state.todo))
       todoCopy["completed"] = true;
-     // console.log(todoCopy)
-      //this.setState(() =>({todo:todoCopy}))
      this.props.dispatch({type:'UPDATETODO', delta:todoCopy});
     }
 
 
   render() {
-    //console.log('render',this.state.todo)
+
     var completed = this.state.todo.completed ? 'true': 'false';
     var btn = "";
     if (!this.state.todo.completed){
@@ -48,9 +44,7 @@ class TodoComp extends Component {
     );
   }
  
-  componentDidMount(){
-   // this.props.dispatch({type:'GetTodo', delta:this.state.todoID});
-  }
+
 }
 
 const mapStateToProps = (newState) =>

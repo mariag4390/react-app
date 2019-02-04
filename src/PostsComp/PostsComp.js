@@ -5,7 +5,6 @@ import DAL from '../State/DALUtils';
 import './PostsComp.css';
 import PostComp from './PostComp';
 import AddPostComp from '../AddPostComp/AddPostComp';
-import  {Switch, Route, Link} from 'react-router-dom';
 
 class PostsComp extends Component {
   constructor(props){
@@ -43,6 +42,7 @@ class PostsComp extends Component {
       if(x.userId === parseInt(this.state.userID)){
         return <PostComp key={index} post = {x}/>
       }
+      return true;
       })
     }
     
@@ -65,9 +65,6 @@ class PostsComp extends Component {
   componentDidMount(){
     if ( this.state.posts === "" || this.state.posts === undefined){
      DAL.getData('https://jsonplaceholder.typicode.com/posts').then(res =>this.props.dispatch({type:'CREATEPOSTSLIST', delta:res.data}));
-   }else{
-     //console.log("componentDidMount-else", this.state.posts)
-      //this.props.dispatch({type:'CREATEpostsLIST', delta: {posts:this.state.posts}});
    }
    }
 }
@@ -81,5 +78,3 @@ const mapStateToProps = (newState) =>
 
 export default connect(mapStateToProps)(PostsComp) ;
 
-
-//export default postsComp;

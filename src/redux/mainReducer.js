@@ -18,7 +18,6 @@ const mainReducer = (
           return x.id;
         }).indexOf(userID);
         usersCopy[index] =  actionData.delta;
-       // console.log('usersCopy');
         return {...state, users:usersCopy }
       
       }
@@ -28,32 +27,28 @@ const mainReducer = (
       }
 
       case 'CREATEDATA' : {
-        //console.log(actionData.delta);
-        return {...state, users:actionData.delta.users,todos:actionData.delta.todos};
+        return {...state, users:actionData.delta.users,todos:actionData.delta.todos, usersBackUp:actionData.delta.users};
       
       }
       case 'GETUSERSLIST' : {
-        return {state};
+        return {...state, usersBackUp:state.users};
       
       }
       case 'CREATEPOSTSLIST' : {
-        //console.log("CREATEPOSTSLIST",actionData.delta,state);
         return {...state, posts:actionData.delta}
       
       }
       case 'CREATETODOSLIST' : {
-        //console.log("CREATETODOSLIST",actionData.delta,state)
         return {...state, todos:actionData.delta}
       
       }
        case 'UPDATETODO' : {
         var postId= actionData.delta.id;
-         //console.log(postId);
          let todosCopy = JSON.parse(JSON.stringify(state.todos))
-         var index = todosCopy.map(x => {
+         var indexa = todosCopy.map(x => {
            return x.id;
          }).indexOf(postId);
-         todosCopy[index] =  actionData.delta;
+         todosCopy[indexa] =  actionData.delta;
         return {...state, todos:todosCopy };
       
       }
@@ -64,7 +59,6 @@ const mainReducer = (
           return x.id;
         }).indexOf(userID);
         usersCopy.splice(index,1);
-        //console.log('DELETEUSER',usersCopy);
         return {...state, users:usersCopy};
         
       }

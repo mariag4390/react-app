@@ -21,10 +21,7 @@ class AddUserScreen extends Component {
   }
 
   AddUser = (e) =>{ 
-    console.log("name", this.state.name, "mail",this.state.email);
-    //this.props.callbackParent({name:this.state.name, email:this.state.email})
     this.props.dispatch({type:'ADDNEWUSER', delta: {name:this.state.name, email:this.state.email}});
-    //this.toggleLightbox();
     this.props.history.push('/')
   }
 
@@ -38,13 +35,11 @@ class AddUserScreen extends Component {
 
    ClosePopUpAndWindow = (e) =>{ 
     $('#alert-msg').hide();
-    //this.props.showAddScreen(false);
     this.props.history.push('/')
 
    }
 
   render() {
-    //console.log(this.state.name, this.state.email);
     return (
       
       <div className="AddUserScreen">
@@ -70,11 +65,7 @@ class AddUserScreen extends Component {
     );
   }
 
-  componentDidMount()
-  {
-   // this.setState({ userUpdate: this.state.user })
-    
-  }
+  componentDidMount() {}
  
 }
 const mapStateToProps = (newState) =>
@@ -86,4 +77,4 @@ const mapStateToProps = (newState) =>
 
 export default connect(mapStateToProps)(AddUserScreen) ;
 
-//export default AddUserScreen;
+

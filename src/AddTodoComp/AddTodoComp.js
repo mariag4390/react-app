@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-//import './AddTodoComp.css';
-import $ from "jquery";
 import {connect} from 'react-redux';
 
 class AddTodoComp extends Component {
@@ -10,7 +8,6 @@ class AddTodoComp extends Component {
    
   }
   static getDerivedStateFromProps(nextProps){
-    console.log(nextProps)
     return{userID: nextProps.userID}
   }
 
@@ -20,9 +17,7 @@ class AddTodoComp extends Component {
   }
  
   addTodo = (e) =>{ 
-   //console.log(this.state.title,this.state.userID);
     this.props.dispatch({type:'ADDNEWTODO', delta: {title:this.state.title, userID:this.state.userID}});
-    //this.toggleLightbox();
     this.props.callbackParent()
   }
 
@@ -33,7 +28,6 @@ class AddTodoComp extends Component {
   
 
   render() {
-    //console.log(this.state.name, this.state.email);
     return (
       
       <div className="AddUserScreen">
@@ -59,11 +53,6 @@ class AddTodoComp extends Component {
     );
   }
 
-  componentDidMount()
-  {
-   // this.setState({ userUpdate: this.state.user })
-    
-  }
  
 }
 const mapStateToProps = (newState) =>
